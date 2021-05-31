@@ -1,0 +1,343 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Practica 2. Se&ntilde;ales en tiempo discreto.</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-30"><meta name="DC.source" content="P2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Practica 2. Se&ntilde;ales en tiempo discreto.</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Integrantes:</a></li><li><a href="#2">Objetivo de la practica.</a></li><li><a href="#3">1. Solucion del problema 3.11-2</a></li><li><a href="#7">2. Soluci&oacute;n del problema 3.2-7.</a></li><li><a href="#15">3. Soluci&oacute;n del problema 3.11-6</a></li><li><a href="#16">4. Soluci&oacute;n del problema 3.1-1 c) y 3.1-2 b).</a></li><li><a href="#19">Referencias</a></li></ul></div><h2 id="1">Integrantes:</h2><p>Juan Pablo Jimenez Lea&ntilde;os</p><p>Samuel S&aacute;nchez Duque.</p><h2 id="2">Objetivo de la practica.</h2><p>- Manipulaci&oacute;n b&aacute;sica de MATLAB.</p><p>- Gr&aacute;ficas de se&ntilde;ales reales y complejas discretas.</p><p>- Transformaci&oacute;n de se&ntilde;ales discretas (escalamientos y traslaciones).</p><h2 id="3">1. Solucion del problema 3.11-2</h2><p>Consider the discrete-time function f[n] = e&#8722;(n/5)cos(&#960;n/5)u[n]. Section 3.11 uses anonymous functions in describing DT signal.</p><pre class="codeinput">f = @(n) exp(-n/5).*cos(pi*n/5).*(n&gt;=0);
+</pre><p>While this anonymous function operates correctly for a downsampling operation such as f[2n], it does not operate correctly for an upsampling operation, such as f[n/2]. Modify the anonymous function f so that it also correctly accommodates upsampling operations.</p><pre class="codeinput">u= @(n) 1.0.*(n&gt;=0);
+f = @(n) exp(-n/5).*cos((pi*n)/5).*u(n).*(1./(mod(n,1)==0));
+n=(-10:10);
+stem(n,f(n));
+grid <span class="string">on</span>;
+set (gca, <span class="string">"xaxislocation"</span>, <span class="string">"origin"</span>);
+set (gca, <span class="string">"yaxislocation"</span>, <span class="string">"origin"</span>);
+title(<span class="string">'Gr&aacute;fica de la se&ntilde;al impar f ( n )'</span>);
+axis([-10 10 -.6 1.1]);
+</pre><img vspace="5" hspace="5" src="P2_01.png" alt=""> <pre class="codeinput">stem(n,f(2*n));
+grid <span class="string">on</span>;
+set (gca, <span class="string">"xaxislocation"</span>, <span class="string">"origin"</span>);
+set (gca, <span class="string">"yaxislocation"</span>, <span class="string">"origin"</span>);
+title(<span class="string">'Gr&aacute;fica de la se&ntilde;al f ( 2 * n )'</span>);
+axis([-10 10 -.6 1.1]);
+</pre><img vspace="5" hspace="5" src="P2_02.png" alt=""> <p>Cuando graficamos a mano nos dimos cuenta que el error es que te lo completa el software la grafica a&ntilde;adiendo puntos donde no existen por lo cual a la funcion anonima se le aplica un modulo para eliminar los impares pero esto termina en 0 y al a&ntilde;adir el 1/modulo hacemos que cuando eso sea 0 se indetermine y por ende no exista.</p><pre class="codeinput">stem(n,f(n/2));
+grid <span class="string">on</span>;
+set (gca, <span class="string">"xaxislocation"</span>, <span class="string">"origin"</span>);
+set (gca, <span class="string">"yaxislocation"</span>, <span class="string">"origin"</span>);
+title(<span class="string">'Gr&aacute;fica de la se&ntilde;al f ( n / 2 )'</span>);
+axis([-10 10 -.6 1.1]);
+</pre><img vspace="5" hspace="5" src="P2_03.png" alt=""> <h2 id="7">2. Soluci&oacute;n del problema 3.2-7.</h2><p>For the signal shown in Fig. P3.1-1b, sketch the following signals:</p><pre class="codeinput">x = @(t) ((t).*((t&gt;=(0))&amp;(t&lt;=(3)))+(-t+6).*((t&gt;3)&amp;(t&lt;=6)));
+t=(-18:18);
+stem(t,x(t));
+grid <span class="string">on</span>;
+set (gca, <span class="string">"xaxislocation"</span>, <span class="string">"origin"</span>);
+set (gca, <span class="string">"yaxislocation"</span>, <span class="string">"origin"</span>);
+title(<span class="string">'Fig. P3.1-1b'</span>);
+axis([-8 13 -5 5]);
+</pre><img vspace="5" hspace="5" src="P2_04.png" alt=""> <p>a) x[&#8722;n]</p><p>b) x[n+6]</p><p>c) x[n&#8722;6]</p><p>d) x[3n]</p><p>e) x[n/3]</p><p>f) x[3-n]</p><p>a)</p><pre class="codeinput">stem(t,x(-t));
+grid <span class="string">on</span>;
+set (gca, <span class="string">"xaxislocation"</span>, <span class="string">"origin"</span>);
+set (gca, <span class="string">"yaxislocation"</span>, <span class="string">"origin"</span>);
+title(<span class="string">'Gr&aacute;fica de la se&ntilde;al x ( - t  )'</span>);
+axis([-8 13 -5 5]);
+</pre><img vspace="5" hspace="5" src="P2_05.png" alt=""> <p>b)</p><pre class="codeinput">stem(t,x(t+6));
+grid <span class="string">on</span>;
+set (gca, <span class="string">"xaxislocation"</span>, <span class="string">"origin"</span>);
+set (gca, <span class="string">"yaxislocation"</span>, <span class="string">"origin"</span>);
+title(<span class="string">'Gr&aacute;fica de la se&ntilde;al x ( t + 6 )'</span>);
+axis([-8 13 -5 5]);
+</pre><img vspace="5" hspace="5" src="P2_06.png" alt=""> <p>c)</p><pre class="codeinput">stem(t,x(t-6));
+grid <span class="string">on</span>;
+set (gca, <span class="string">"xaxislocation"</span>, <span class="string">"origin"</span>);
+set (gca, <span class="string">"yaxislocation"</span>, <span class="string">"origin"</span>);
+title(<span class="string">'Gr&aacute;fica de la se&ntilde;al x ( t - 6 )'</span>);
+axis([-8 13 -5 5]);
+</pre><img vspace="5" hspace="5" src="P2_07.png" alt=""> <p>d)</p><pre class="codeinput">stem(t,x(3*t));
+grid <span class="string">on</span>;
+set (gca, <span class="string">"xaxislocation"</span>, <span class="string">"origin"</span>);
+set (gca, <span class="string">"yaxislocation"</span>, <span class="string">"origin"</span>);
+title(<span class="string">'Gr&aacute;fica de la se&ntilde;al x ( 3 * t )'</span>);
+axis([-8 13 -5 5]);
+</pre><img vspace="5" hspace="5" src="P2_08.png" alt=""> <p>e) Aqui para no modificar la funci&oacute;n solo a&ntilde;adi un paso mayor.</p><pre class="codeinput">t=(-18:3:18);
+stem(t,x(t/3));
+grid <span class="string">on</span>;
+set (gca, <span class="string">"xaxislocation"</span>, <span class="string">"origin"</span>);
+set (gca, <span class="string">"yaxislocation"</span>, <span class="string">"origin"</span>);
+title(<span class="string">'Gr&aacute;fica de la se&ntilde;al x ( t / 3 )'</span>);
+axis([-2 19 -5 5]);
+</pre><img vspace="5" hspace="5" src="P2_09.png" alt=""> <p>f)</p><pre class="codeinput">t=(-18:18);
+stem(t,x(3-t));
+grid <span class="string">on</span>;
+set (gca, <span class="string">"xaxislocation"</span>, <span class="string">"origin"</span>);
+set (gca, <span class="string">"yaxislocation"</span>, <span class="string">"origin"</span>);
+title(<span class="string">'Gr&aacute;fica de la se&ntilde;al x ( 3 - t )'</span>);
+axis([-8 13 -5 5]);
+</pre><img vspace="5" hspace="5" src="P2_10.png" alt=""> <h2 id="15">3. Soluci&oacute;n del problema 3.11-6</h2><p>Funci&oacute;n de la energia en caso que la queramos a&ntilde;adir a una funcio&oacute;n nueva.</p><p>function [ E_x ] = Energia (t,x)</p><p>x = @(t) (funci&oacute;n) ;</p><p>t = (rango);</p><p>E_x = sum(x(t).*x(t));</p><p>printf("La energia es  %d",E_x);</p><p>end</p><p>___________________________________________________________________________________________________________________________</p><p>Funcion de la potencia por si se le quiere a&ntilde;adir.</p><p>function [ P_x ] = Potencia (t,x);</p><p>x=@(t) (funci&oacute;n);</p><p>t = (rango);</p><p>P_x= (1/Numero de intevalos de la se&ntilde;al).*(sum(x(t).*x(t));</p><p>printf("La potencia es  %d",P_x);</p><p>end</p><h2 id="16">4. Soluci&oacute;n del problema 3.1-1 c) y 3.1-2 b).</h2><pre class="codeinput">x = @(t) 3.*t.*((t&gt;=-3)&amp;(t&lt;=3));
+t=(-18:18);
+stem(t,x(t));
+grid <span class="string">on</span>;
+set (gca, <span class="string">"xaxislocation"</span>, <span class="string">"origin"</span>);
+set (gca, <span class="string">"yaxislocation"</span>, <span class="string">"origin"</span>);
+title(<span class="string">'Gr&aacute;fica de la se&ntilde;al original 3.1-1 c)'</span>);
+axis([-4 7 -10 10]);
+</pre><img vspace="5" hspace="5" src="P2_11.png" alt=""> <pre class="codeinput">E_x = sum(x(t).*x(t));
+fprintf(<span class="string">'El valor de la energia es: %d'</span>,E_x);
+</pre><pre class="codeoutput">El valor de la energia es: 252</pre><pre class="codeinput">x = @(t) mod(t,4)-mod(t,4);
+t=(-15:15);
+stem(t,x(t));
+grid <span class="string">on</span>;
+set (gca, <span class="string">"xaxislocation"</span>, <span class="string">"origin"</span>);
+set (gca, <span class="string">"yaxislocation"</span>, <span class="string">"origin"</span>);
+title(<span class="string">'Gr&aacute;fica de la se&ntilde;al original 3.1-2 b)'</span>);
+axis([-15 15 -4 4]);
+</pre><img vspace="5" hspace="5" src="P2_12.png" alt=""> <h2 id="19">Referencias</h2><p>B.P. Lathi. (2018). Lynear Sistems and signals. New York : Oxford.</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Practica 2. Señales en tiempo discreto.
+%
+%
+%% Integrantes:
+%
+% Juan Pablo Jimenez Leaños
+%
+% Samuel Sánchez Duque.
+%% Objetivo de la practica.
+%
+% - Manipulación básica de MATLAB.
+%
+% - Gráficas de señales reales y complejas discretas.
+%
+% - Transformación de señales discretas (escalamientos y traslaciones).
+%% 1. Solucion del problema 3.11-2
+%
+% Consider the discrete-time function f[n] =
+% e−(n/5)cos(πn/5)u[n]. Section 3.11 uses anonymous functions in describing
+% DT signal. 
+f = @(n) exp(-n/5).*cos(pi*n/5).*(n>=0);
+%%
+% While this anonymous function operates correctly for a downsampling operation such as
+% f[2n], it does not operate correctly for an
+% upsampling operation, such as f[n/2]. Modify the anonymous function f so that it also
+% correctly accommodates upsampling operations.
+u= @(n) 1.0.*(n>=0);
+f = @(n) exp(-n/5).*cos((pi*n)/5).*u(n).*(1./(mod(n,1)==0));
+n=(-10:10);
+stem(n,f(n));
+grid on;
+set (gca, "xaxislocation", "origin");
+set (gca, "yaxislocation", "origin");
+title('Gráfica de la señal impar f ( n )');
+axis([-10 10 -.6 1.1]);
+%%
+stem(n,f(2*n));
+grid on;
+set (gca, "xaxislocation", "origin");
+set (gca, "yaxislocation", "origin");
+title('Gráfica de la señal f ( 2 * n )');
+axis([-10 10 -.6 1.1]);
+%%
+% Cuando graficamos a mano nos dimos cuenta que el error es que te lo
+% completa el software la grafica añadiendo puntos donde no existen por lo
+% cual a la funcion anonima se le aplica un modulo para eliminar los
+% impares pero esto termina en 0 y al añadir el 1/modulo hacemos que cuando
+% eso sea 0 se indetermine y por ende no exista.
+stem(n,f(n/2));
+grid on;
+set (gca, "xaxislocation", "origin");
+set (gca, "yaxislocation", "origin");
+title('Gráfica de la señal f ( n / 2 )');
+axis([-10 10 -.6 1.1]);
+%% 2. Solución del problema 3.2-7.
+% For the signal shown in Fig. P3.1-1b, sketch the
+% following signals:
+x = @(t) ((t).*((t>=(0))&(t<=(3)))+(-t+6).*((t>3)&(t<=6)));
+t=(-18:18);
+stem(t,x(t));
+grid on;
+set (gca, "xaxislocation", "origin");
+set (gca, "yaxislocation", "origin");
+title('Fig. P3.1-1b');
+axis([-8 13 -5 5]);
+%%
+% a) x[−n]
+%
+% b) x[n+6]
+%
+% c) x[n−6]
+%
+% d) x[3n]
+%
+% e) x[n/3]
+%
+% f) x[3-n]
+%
+%%
+%
+% a)
+stem(t,x(-t));
+grid on;
+set (gca, "xaxislocation", "origin");
+set (gca, "yaxislocation", "origin");
+title('Gráfica de la señal x ( - t  )');
+axis([-8 13 -5 5]);
+%%
+% b)
+stem(t,x(t+6));
+grid on;
+set (gca, "xaxislocation", "origin");
+set (gca, "yaxislocation", "origin");
+title('Gráfica de la señal x ( t + 6 )');
+axis([-8 13 -5 5]);
+%%
+% c)
+stem(t,x(t-6));
+grid on;
+set (gca, "xaxislocation", "origin");
+set (gca, "yaxislocation", "origin");
+title('Gráfica de la señal x ( t - 6 )');
+axis([-8 13 -5 5]);
+%%
+% d)
+stem(t,x(3*t));
+grid on;
+set (gca, "xaxislocation", "origin");
+set (gca, "yaxislocation", "origin");
+title('Gráfica de la señal x ( 3 * t )');
+axis([-8 13 -5 5]);
+%%
+% e) Aqui para no modificar la función solo añadi un paso mayor.
+t=(-18:3:18);
+stem(t,x(t/3));
+grid on;
+set (gca, "xaxislocation", "origin");
+set (gca, "yaxislocation", "origin");
+title('Gráfica de la señal x ( t / 3 )');
+axis([-2 19 -5 5]);
+%%
+% f)
+t=(-18:18);
+stem(t,x(3-t));
+grid on;
+set (gca, "xaxislocation", "origin");
+set (gca, "yaxislocation", "origin");
+title('Gráfica de la señal x ( 3 - t )');
+axis([-8 13 -5 5]);
+%% 3. Solución del problema 3.11-6
+% Función de la energia en caso que la queramos añadir a una funcioón
+% nueva.
+% 
+% function [ E_x ] = Energia (t,x)
+%
+% x = @(t) (función) ;
+%
+% t = (rango);
+%
+% E_x = sum(x(t).*x(t));
+%
+% printf("La energia es  %d",E_x);
+%
+% end 
+%
+% _____________________________________________________________________________________________________________________________
+%
+% Funcion de la potencia por si se le quiere añadir.
+%
+% function [ P_x ] = Potencia (t,x);
+%
+% x=@(t) (función);
+%
+% t = (rango);
+%
+% P_x= (1/Numero de intevalos de la señal).*(sum(x(t).*x(t));
+%
+% printf("La potencia es  %d",P_x);
+%
+% end
+%
+%% 4. Solución del problema 3.1-1 c) y 3.1-2 b).
+x = @(t) 3.*t.*((t>=-3)&(t<=3));
+t=(-18:18);
+stem(t,x(t));
+grid on;
+set (gca, "xaxislocation", "origin");
+set (gca, "yaxislocation", "origin");
+title('Gráfica de la señal original 3.1-1 c)');
+axis([-4 7 -10 10]);
+%%
+E_x = sum(x(t).*x(t));
+fprintf('El valor de la energia es: %d',E_x);
+%%
+x = @(t) mod(t,4)-mod(t,4);
+t=(-15:15);
+stem(t,x(t));
+grid on;
+set (gca, "xaxislocation", "origin");
+set (gca, "yaxislocation", "origin");
+title('Gráfica de la señal original 3.1-2 b)');
+axis([-15 15 -4 4]);
+%% Referencias 
+% B.P. Lathi. (2018). Lynear Sistems and signals. New York : Oxford.
+##### SOURCE END #####
+--></body></html>
